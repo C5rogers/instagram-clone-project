@@ -35,4 +35,4 @@ services:
     volumes:
       - /hasura/hasura-metadata
 volumes:
-  authdata:
+  instagramdata:

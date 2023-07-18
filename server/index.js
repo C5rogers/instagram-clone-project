@@ -1,7 +1,7 @@
 const express = require('express')
 require('dotenv').config()
 const body_parser = require('body-parser')
-
+    //we import all the necessary types here and we will do any thing to use it
 
 
 //creating the express app

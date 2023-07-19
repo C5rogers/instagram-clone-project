@@ -1,4 +1,16 @@
-//here we will do password related functionality as a helper
+//need to install bcrypt
+const bcrypt = require('bcryptjs')
 
-//we will hash the password and 
-//we will also cross check the password from the database password
+const hashPassword = (password) => {
+    const salt = bcrypt.genSaltSync()
+    return bcrypt.hashSync(password, salt)
+}
+
+const compareHashedPassword = async(password, hashedPassword) => {
+    return await bcrypt.compareSync(password, hashedPassword)
+}
+
+module.exports = {
+    hashPassword,
+    compareHashedPassword
+}

@@ -1,0 +1,2 @@
+CREATE TABLE "public"."notifications" ("id" uuid NOT NULL DEFAULT gen_random_uuid(), "reciver_user_id" uuid NOT NULL, "sender_user_id" uuid NOT NULL, "content" text NOT NULL, "notificaion_type" text NOT NULL, "is_readen" boolean NOT NULL DEFAULT false, "related_post_id" uuid, "created_at" timestamptz NOT NULL DEFAULT now(), PRIMARY KEY ("id") , UNIQUE ("id"));
+CREATE EXTENSION IF NOT EXISTS pgcrypto;

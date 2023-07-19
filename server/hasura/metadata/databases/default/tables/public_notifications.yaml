@@ -1,21 +1,30 @@
 table:
-  name: posts_like
+  name: notifications
   schema: public
 object_relationships:
-  - name: liked_post
+  - name: reciver_user
     using:
       manual_configuration:
         column_mapping:
-          post_id: id
+          reciver_user_id: id
+        insertion_order: null
+        remote_table:
+          name: users
+          schema: public
+  - name: related_post
+    using:
+      manual_configuration:
+        column_mapping:
+          related_post_id: id
         insertion_order: null
         remote_table:
           name: posts
           schema: public
-  - name: post_liking_user
+  - name: sender_user
     using:
       manual_configuration:
         column_mapping:
-          user_id: id
+          sender_user_id: id
         insertion_order: null
         remote_table:
           name: users

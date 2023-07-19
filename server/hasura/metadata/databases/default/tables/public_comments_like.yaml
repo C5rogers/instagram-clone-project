@@ -1,17 +1,8 @@
 table:
-  name: posts_like
+  name: comments_like
   schema: public
 object_relationships:
-  - name: liked_post
-    using:
-      manual_configuration:
-        column_mapping:
-          post_id: id
-        insertion_order: null
-        remote_table:
-          name: posts
-          schema: public
-  - name: post_liking_user
+  - name: comment_liking_user
     using:
       manual_configuration:
         column_mapping:
@@ -19,4 +10,13 @@ object_relationships:
         insertion_order: null
         remote_table:
           name: users
+          schema: public
+  - name: lilked_comment
+    using:
+      manual_configuration:
+        column_mapping:
+          comment_id: id
+        insertion_order: null
+        remote_table:
+          name: comments
           schema: public

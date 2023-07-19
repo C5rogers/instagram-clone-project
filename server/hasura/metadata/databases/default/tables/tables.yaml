@@ -1,2 +1,3 @@
 - "!include public_users.yaml"
+- "!include public_users_following_follower.yaml"
 - "!include public_users_profile.yaml"

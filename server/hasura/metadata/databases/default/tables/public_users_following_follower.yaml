@@ -1,0 +1,22 @@
+table:
+  name: users_following_follower
+  schema: public
+object_relationships:
+  - name: users_followed
+    using:
+      manual_configuration:
+        column_mapping:
+          followed_id: id
+        insertion_order: null
+        remote_table:
+          name: users
+          schema: public
+  - name: users_following
+    using:
+      manual_configuration:
+        column_mapping:
+          follower_id: id
+        insertion_order: null
+        remote_table:
+          name: users
+          schema: public

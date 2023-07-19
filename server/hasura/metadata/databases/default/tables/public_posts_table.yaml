@@ -1,0 +1,22 @@
+table:
+  name: posts_table
+  schema: public
+object_relationships:
+  - name: liked_post
+    using:
+      manual_configuration:
+        column_mapping:
+          post_id: id
+        insertion_order: null
+        remote_table:
+          name: posts
+          schema: public
+  - name: post_liking_user
+    using:
+      manual_configuration:
+        column_mapping:
+          user_id: id
+        insertion_order: null
+        remote_table:
+          name: users
+          schema: public

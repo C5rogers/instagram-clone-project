@@ -17,3 +17,46 @@ array_relationships:
         table:
           name: posts
           schema: public
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - followers_count
+        - following_count
+        - posts_count
+        - bio
+        - email
+        - password
+        - phone
+        - username
+        - created_at
+        - updated_at
+        - id
+      filter: {}
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - followers_count
+        - following_count
+        - posts_count
+        - bio
+        - email
+        - password
+        - phone
+        - username
+        - created_at
+        - updated_at
+        - id
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      check:
+        id:
+          _eq: X-Hasura-User-Id
+delete_permissions:
+  - role: user
+    permission:
+      filter:
+        id:
+          _eq: X-Hasura-User-Id

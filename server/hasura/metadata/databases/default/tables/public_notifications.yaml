@@ -29,3 +29,63 @@ object_relationships:
         remote_table:
           name: users
           schema: public
+insert_permissions:
+  - role: user
+    permission:
+      check:
+        sender_user_id:
+          _eq: X-Hasura-User-Id
+      columns:
+        - is_readen
+        - content
+        - notificaion_type
+        - created_at
+        - id
+        - reciver_user_id
+        - related_post_id
+        - sender_user_id
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - is_readen
+        - content
+        - notificaion_type
+        - created_at
+        - id
+        - reciver_user_id
+        - related_post_id
+        - sender_user_id
+      filter:
+        _or:
+          - reciver_user_id:
+              _eq: X-Hasura-User-Id
+          - sender_user_id:
+              _eq: X-Hasura-User-Id
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - is_readen
+        - content
+        - notificaion_type
+        - created_at
+        - id
+        - reciver_user_id
+        - related_post_id
+        - sender_user_id
+      filter:
+        sender_user_id:
+          _eq: X-Hasura-User-Id
+      check:
+        sender_user_id:
+          _eq: X-Hasura-User-Id
+delete_permissions:
+  - role: user
+    permission:
+      filter:
+        _or:
+          - reciver_user_id:
+              _eq: X-Hasura-User-Id
+          - sender_user_id:
+              _eq: X-Hasura-User-Id

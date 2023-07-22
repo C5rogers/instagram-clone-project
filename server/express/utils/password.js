@@ -1,4 +1,3 @@
-//need to install bcrypt
 const bcrypt = require('bcryptjs')
 
 const hashPassword = (password) => {

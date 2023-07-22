@@ -3,7 +3,7 @@ const jwt = require('../utils/jwt')
 
 
 module.exports.login_post = (req, res) => {
-
+    console.log("the request is arived now!")
 }
 
 module.exports.signup_post = (req, res) => {

@@ -5,10 +5,10 @@ const validator = require('../utils/validator')
 const router = Router()
 
 router.post('/login', (req, res, next) => {
-
+    next();
 }, authController.login_post)
 router.post('/signup', (req, res, next) => {
-
+    next();
 }, authController.signup_post)
 router.post('/faceboock/login', authController.faceboock_login)
 router.post('faceboock/signup', authController.faceboock_signup)

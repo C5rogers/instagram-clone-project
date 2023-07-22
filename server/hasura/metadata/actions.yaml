@@ -1,6 +1,15 @@
-actions: []
+actions:
+  - name: LoginUser
+    definition:
+      kind: ""
+      handler: http://172.17.0.1:4000/login
+      forward_client_headers: true
+    permissions:
+      - role: anonimous
 custom_types:
   enums: []
-  input_objects: []
-  objects: []
+  input_objects:
+    - name: LoginInput
+  objects:
+    - name: LoginOutput
   scalars: []

@@ -7,10 +7,18 @@ const router = require('./express/router/index')
     //need to have also helmate
 
 
+//writing the filebuffere to file
+//fs.writeFileSync("./public/profile/"+name,fileBuffere,'base64');
+//we accept the fileBuffere and name from the request like an string
+//define hasura action with the filds of name,type,base64str, filds to accept the file
+//save the path to the database
+//from the frontend change the file to base64 format to send to the front end
+
 //creating the express app
 const app = express()
     //registering passport
 app.use(passport.initialize())
+app.use(express.static('public'))
 app.use(passport.session())
 app.use(body_parser.json({ limit: '200mb' }))
 app.use(express.urlencoded({

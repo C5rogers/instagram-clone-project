@@ -6,6 +6,22 @@ const passport = require('passport')
 const router = Router()
 
 router.post('/login', (req, res, next) => {
+    const { email, password } = req.body.input.object
+    const errors = {}
+    let result = validator.isValidEmail(email);
+    if (result == 1) {
+        errors.email = "Email is required"
+    } else if (result == 2) {
+        errors.email = "Invalid email address"
+    }
+
+    if (!password) {
+        errors.password = "Password is required"
+    }
+
+    if (Object.keys(errors).length > 0) {
+        return res.status(400).json({ errors })
+    }
 
     next();
 }, authController.login_post)

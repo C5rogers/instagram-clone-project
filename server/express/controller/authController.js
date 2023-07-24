@@ -1,5 +1,6 @@
 const passwordManuplatiion = require('../utils/password')
 const jwt = require('../utils/jwt')
+const fs = require('fs')
 
 
 module.exports.login_post = (req, res) => {
@@ -7,6 +8,10 @@ module.exports.login_post = (req, res) => {
 }
 
 module.exports.signup_post = (req, res) => {
+
+
+    //extract the user profile information and save it to the local file system in public folder
+    //this happens after validating the user input
 
 }
 

@@ -4,6 +4,12 @@ type Query {
   ): LoginOutput
 }
 
+type Mutation {
+  facebookLoginOrSignup(
+    accessToken: String!
+  ): LogedInUser
+}
+
 input LoginInput {
   email: String!
   password: String!
@@ -12,5 +18,12 @@ input LoginInput {
 type LoginOutput {
   id: uuid!
   accessToken: String!
+}
+
+type LogedInUser {
+  id: uuid!
+  username: String!
+  jwtAccessToken: String!
+  email: String!
 }
 

@@ -2,6 +2,7 @@ const express = require('express')
 const passport = require('passport')
 require('dotenv').config()
 require('./express/strategys/facebook')
+const session = require('express-session')
 const body_parser = require('body-parser')
 const router = require('./express/router/index')
     //need to have also helmate
@@ -17,6 +18,16 @@ const router = require('./express/router/index')
 //creating the express app
 const app = express()
     //registering passport
+app.use(session({
+    secret: process.env.HASURA_ACTION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: true,
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24
+    }
+}))
 app.use(passport.initialize())
 app.use(express.static('public'))
 app.use(passport.session())

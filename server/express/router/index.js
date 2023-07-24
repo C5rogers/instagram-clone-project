@@ -14,9 +14,11 @@ router.post('/login', (req, res, next) => {
     } else if (result == 2) {
         errors.email = "Invalid email address"
     }
-
-    if (!password) {
+    result = validator.isValidPassword(password)
+    if (result == 1) {
         errors.password = "Password is required"
+    } else if (result == 2) {
+        errors.password = "Invalid Password"
     }
 
     if (Object.keys(errors).length > 0) {

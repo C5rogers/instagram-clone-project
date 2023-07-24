@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
-const dotenv = require('dotenv').config({ path: '../../.env' })
+const dotenv = require('dotenv').config('../../.env')
 
-const JWT_SECRET = dotenv.JWT_SECRET
+const JWT_SECRET = dotenv.parsed.JWT_SECRET
 const expiredate = 30 * 24 * 60 * 60
 
 const generateToken = (userId) => {

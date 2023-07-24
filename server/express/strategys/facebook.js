@@ -1,15 +1,11 @@
 const passport = require('passport')
 const FacebookTokenStrategy = require('passport-facebook-token')
-const dotenv = require('dotenv').config({
-    path: '../../.env'
-})
-
-
+const dotenv = require('dotenv').config('../../.env')
 
 passport.use(
     new FacebookTokenStrategy({
-        clientID: dotenv.FACEBOOK_APP_ID,
-        clientSecret: dotenv.FACEBOOK_APP_SECRET
+        clientID: dotenv.parsed.FACEBOOK_APP_ID,
+        clientSecret: dotenv.parsed.FACEBOOK_APP_SECRET
     }, async(accessToken, refreshToken, profile, done) => {
         console.log("we are now on the strategy to autenticate")
             // You can handle user authentication here.

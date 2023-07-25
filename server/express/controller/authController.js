@@ -43,9 +43,17 @@ module.exports.login_post = async(req, res) => {
 
 module.exports.signup_post = (req, res) => {
 
-
+    //can use base64 encoding to upload the file in string format
     //extract the user profile information and save it to the local file system in public folder
     //this happens after validating the user input
+
+    //to upload the user profile 
+    //fist check whether the variable is holding the rquired vlaue
+    //if it have write the file and extract the path of the file
+    //but first change the name of the file with hashed version
+    //save the created and saved file path to the database
+    //otherwise set the common file path to the user profile correspondence
+
 
 }
 

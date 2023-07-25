@@ -6,6 +6,11 @@ actions:
       forward_client_headers: true
     permissions:
       - role: anonimous
+  - name: SignUpUser
+    definition:
+      kind: synchronous
+      handler: http://172.17.0.1:4000/signup
+      forward_client_headers: true
   - name: facebookLoginOrSignup
     definition:
       kind: synchronous
@@ -17,7 +22,9 @@ custom_types:
   enums: []
   input_objects:
     - name: LoginInput
+    - name: SignUpInput
   objects:
     - name: LoginOutput
     - name: LogedInUser
+    - name: SignedUpUserInfo
   scalars: []

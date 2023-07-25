@@ -5,6 +5,12 @@ type Query {
 }
 
 type Mutation {
+  SignUpUser(
+    object: SignUpInput!
+  ): SignedUpUserInfo
+}
+
+type Mutation {
   facebookLoginOrSignup(
     accessToken: String!
   ): LogedInUser
@@ -13,6 +19,16 @@ type Mutation {
 input LoginInput {
   email: String!
   password: String!
+}
+
+input SignUpInput {
+  username: String!
+  email: String!
+  phone: String!
+  password: String!
+  bio: String
+  gender: String!
+  profilebase64: String
 }
 
 type LoginOutput {
@@ -25,5 +41,14 @@ type LogedInUser {
   username: String!
   jwtAccessToken: String!
   email: String!
+}
+
+type SignedUpUserInfo {
+  id: uuid!
+  accessToken: String!
+  username: String!
+  gender: String!
+  profilePicture: String!
+  bio: String
 }
 

@@ -31,10 +31,7 @@ router.post('/login', (req, res, next) => {
 }, authController.login_post)
 router.post('/signup', async(req, res, next) => {
 
-    //validate if the filds are there to create the user information
-    //-username,email,phone,password,bio|nullable,gender
-    //cross check whether the user is existed using its email and phone number 
-    //if it exist respond back with error message called you already have an account
+
     const { username, email, phone, password, gender } = req.body.input.object
     const errors = {}
     let result = validator.isValidName(username)
@@ -79,7 +76,7 @@ router.post('/signup', async(req, res, next) => {
         }
         const result = await requesting(getExistingUser, variables)
         const user = result.data.users[0]
-        if (user !== null) {
+        if (user) {
             errors.message = "You already have an account. please login!"
         }
     } catch (error) {

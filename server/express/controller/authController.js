@@ -1,8 +1,11 @@
 const passwordManuplatiion = require('../utils/password')
 const jwt = require('../utils/jwt')
 const fs = require('fs')
-const { getUser } = require('../graphql/auth')
+const { getUser, creatingUser } = require('../graphql/auth')
 const requesting = require('../utils/graphqlRequest')
+const { generateHashedFileName, getFileExtension } = require('../utils/filenameRelated')
+const path = require('path')
+const { hash } = require('bcryptjs')
 
 
 module.exports.login_post = async(req, res) => {
@@ -41,18 +44,98 @@ module.exports.login_post = async(req, res) => {
     }
 }
 
-module.exports.signup_post = (req, res) => {
+module.exports.signup_post = async(req, res) => {
 
-    //can use base64 encoding to upload the file in string format
-    //extract the user profile information and save it to the local file system in public folder
-    //this happens after validating the user input
+    const { username, email, phone, password, bio, gender, profilebase64 } = req.body.input.object
+        //first chacke whether the file existed or not
+        //and upload if it exists
+    if (profilebase64) {
+        let filepath
+        try {
+            const fileextension = getFileExtension(profilebase64)
+            const hashedFileName = generateHashedFileName(fileextension)
+            filepath = path.join(__dirname, '/public/profile', hashedFileName)
+            const fileData = profilebase64.replace(/^data:image\/\w+;base64,/, '')
+            const buffere = Buffer.from(fileData, 'base64')
+            fs.writeFile(filepath, buffere, (err) => {
+                if (err) {
+                    if (gender == 'm' || gender == 'M') {
+                        hashedFileName = 'male.png'
+                    } else {
+                        hashedFileName = 'female.png'
+                    }
+                    filepath = path.join(__dirname, '/public/profile', hashedFileName)
+                }
+            })
+        } catch (error) {
+            console.log("Error while uploading the image: " + error)
+        }
+        //signup the user
+        const userNewPassword = passwordManuplatiion.hashPassword(password)
+        const variables = {
+            username: username,
+            email: email,
+            phone: phone,
+            password: userNewPassword,
+            bio: bio,
+            gender: gender,
+            profilePicture: filepath
+        }
+        try {
+            const result = await requesting(creatingUser, variables)
+            const user = result.data.insert_users_one
+            const token = jwt.generateToken(user.id)
+            const SignedUpUserInfo = {
+                id: user.id,
+                accessToken: token,
+                username: user.username,
+                gender: user.gender,
+                profilePicture: user.users_profile.profile_url,
+                bio: user.bio
+            }
+            return res.status(201).json(SignedUpUserInfo)
+        } catch (error) {
+            const message = error.message
+            return res.status(400).json({ message })
+        }
 
-    //to upload the user profile 
-    //fist check whether the variable is holding the rquired vlaue
-    //if it have write the file and extract the path of the file
-    //but first change the name of the file with hashed version
-    //save the created and saved file path to the database
-    //otherwise set the common file path to the user profile correspondence
+    } else {
+        let hashedFileName;
+        if (gender == 'm' || gender == 'M') {
+            hashedFileName = "male.png"
+        } else {
+            hashedFileName = "female.png"
+        }
+        const filepath = path.join(__dirname, '/public/profile', hashedFileName)
+        const hashedUserPassword = passwordManuplatiion.hashPassword(password)
+        const variables = {
+            username: username,
+            email: email,
+            phone: phone,
+            password: hashedUserPassword,
+            bio: bio,
+            gender: gender,
+            profilePicture: filepath
+        }
+        try {
+            const result = await requesting(creatingUser, variables)
+            const user = result.data.insert_users_one
+            const token = jwt.generateToken(user.id)
+            const SignedUpUserInfo = {
+                id: user.id,
+                accessToken: token,
+                username: user.username,
+                gender: user.gender,
+                profilePicture: user.users_profile.profile_url,
+                bio: user.bio
+            }
+            return res.status(201).json(SignedUpUserInfo)
+        } catch (error) {
+            const message = error.message
+            return res.status(400).json({ message })
+        }
+    }
+
 
 
 }

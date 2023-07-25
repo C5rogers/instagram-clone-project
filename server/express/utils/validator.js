@@ -34,7 +34,7 @@ const isValidName = (name) => {
 const isValidPhonenumber = (phone) => {
     if (!phone) {
         return 1
-    } else if (phoneregex.test(phone)) {
+    } else if (!phoneregex.test(phone)) {
         return 2
     }
     return 0

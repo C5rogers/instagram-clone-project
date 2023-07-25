@@ -11,6 +11,8 @@ actions:
       kind: synchronous
       handler: http://172.17.0.1:4000/signup
       forward_client_headers: true
+    permissions:
+      - role: anonimous
   - name: facebookLoginOrSignup
     definition:
       kind: synchronous

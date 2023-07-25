@@ -5,7 +5,6 @@ const { getUser, creatingUser } = require('../graphql/auth')
 const requesting = require('../utils/graphqlRequest')
 const { generateHashedFileName, getFileExtension } = require('../utils/filenameRelated')
 const path = require('path')
-const { hash } = require('bcryptjs')
 
 
 module.exports.login_post = async(req, res) => {

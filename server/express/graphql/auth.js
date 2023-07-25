@@ -7,7 +7,15 @@ const getUser = `
         }
     }
 `
+const getExistingUser = `
+query getExistedUser($email: String!, $phone: String!) {
+    users(where: {_or: {email: {_eq: $email}, phone: {_eq: $phone}}}) {
+      id
+    }
+  }
+`
 
 module.exports = {
-    getUser
+    getUser,
+    getExistingUser
 }
